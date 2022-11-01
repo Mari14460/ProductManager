@@ -49,4 +49,11 @@ public class ProductRepoTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
+    @Test
+    void deleteProductNotExists() {
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            productRepo.deleteById(5);
+        });
+    }
 }

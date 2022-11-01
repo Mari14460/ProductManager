@@ -1,5 +1,7 @@
 package ru.netology.ProductRepo;
 
+import ru.netology.ProductManager.NotFoundException;
+
 public class ProductRepo {
     private Product[] products = new Product[0];
 
@@ -16,7 +18,19 @@ public class ProductRepo {
         return products;
     }
 
+    public Product findById(int id){
+        for (Product product : products) {
+            if (product.getId() == id){
+               return product;
+            }
+        }
+        return null;
+    }
+
     public void deleteById(int id) {
+        if (findById(id) == null){
+            throw new NotFoundException("Product with id=" + id + " doesn't exist");
+        }
         Product[] temp = new Product[products.length - 1];
         int copyToIndex = 0;
         for (Product product : products) {
